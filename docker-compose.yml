@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env   # <- Docker lira les variables depuis ce fichier
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run start
