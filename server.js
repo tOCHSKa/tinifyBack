@@ -2,9 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const { v4: uuidv4 } = require('uuid');
-const rateLimit = require('express-rate-limit');
 const usersRoutes = require('./routes/users');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,21 +25,6 @@ const limiter = rateLimit({
   }
 });
 app.use(limiter);
-
-// ===========================
-// Middleware visitorId
-// ===========================
-app.use((req, res, next) => {
-  if (!req.cookies.visitorId) {
-    const visitorId = uuidv4();
-    res.cookie('visitorId', visitorId, { 
-      maxAge: 365*24*60*60*1000, // 1 an
-      httpOnly: true,             // sécurité
-      sameSite: 'Lax'             // prévention CSRF
-    });
-  }
-  next();
-});
 
 // ===========================
 // Routes
