@@ -7,10 +7,7 @@ exports.createUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Hacher le mot de passe
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = new User({ email, password: hashedPassword });
+    const user = new User({ email, password });
     await user.save();
 
     res.status(201).json({ message: 'Utilisateur créé !' });

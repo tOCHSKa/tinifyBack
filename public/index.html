@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liste des utilisateurs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+  <h1 class="text-2xl font-bold mb-4">Utilisateurs</h1>
+
+  <table class="table-auto w-full bg-white shadow rounded">
+    <thead class="bg-gray-200">
+      <tr>
+        <th class="px-4 py-2 text-left">Email</th>
+        <th class="px-4 py-2 text-left">Créé le</th>
+        <th class="px-4 py-2 text-left">UUID</th>
+      </tr>
+    </thead>
+    <tbody id="users-body"></tbody>
+  </table>
+
+  <script>
+    // === Ton token JWT issu de Postman ===
+    const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzMzZWE0MjUxZjczOWQzZTQ1ZTY4ZSIsImVtYWlsIjoidGVzdDEyMzQ1NkBleGFtcGxlLmNvbSIsImlhdCI6MTc1NzY3Mjc3NywiZXhwIjoxNzU3Njc2Mzc3fQ.NkZNcQ_hYWg_Z5rVqYOtOK8-dxnN_PnKc3P_ZbRojjg";
+
+    async function fetchUsers() {
+      try {
+        const response = await fetch('http://localhost:3000/users', {
+          headers: {
+            'Authorization': `Bearer ${TOKEN}`
+          }
+        });
+
+        if (!response.ok) throw new Error('Erreur requête : ' + response.status);
+
+        const users = await response.json();
+        const tbody = document.getElementById('users-body');
+
+        users.forEach(u => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="border px-4 py-2">${u.email}</td>
+            <td class="border px-4 py-2">${new Date(u.createdAt).toLocaleString()}</td>
+            <td class="border px-4 py-2">${u.UUID}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (err) {
+        console.error(err);
+        alert('Impossible de récupérer les utilisateurs');
+      }
+    }
+
+    fetchUsers();
+  </script>
+</body>
+</html>

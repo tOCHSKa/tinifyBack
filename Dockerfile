@@ -2,9 +2,12 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY package.json .
+# Copier package.json et package-lock.json pour installer les dépendances
+COPY package*.json ./
+
 RUN npm install --production
 
+# Copier tout le reste du code
 COPY . .
 
 EXPOSE 3000

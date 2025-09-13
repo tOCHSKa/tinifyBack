@@ -11,7 +11,17 @@ const PORT = process.env.PORT || 3000;
 // Middleware JSON et cookies
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.static('public'));
 
+const cors = require('cors');
+
+const corsOptions = {
+  origin: ['http://localhost:8080'], // ton front local
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 // ===========================
 // Rate Limiter Global
 // ===========================
