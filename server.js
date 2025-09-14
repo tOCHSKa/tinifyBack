@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const usersRoutes = require('./routes/users');
 const rateLimit = require('express-rate-limit');
+const createAdminUser = require('./scripts/createAdmin');
 
 const app = express();
 const PORT = process.env.PORT || 3000;

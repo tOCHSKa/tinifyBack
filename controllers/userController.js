@@ -7,7 +7,13 @@ exports.createUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = new User({ email, password });
+    // ✅ Ajout explicite du rôle
+    const user = new User({
+      email,
+      password,
+      role: 'user',
+    });
+
     await user.save();
 
     res.status(201).json({ message: 'Utilisateur créé !' });
@@ -27,7 +33,7 @@ exports.loginUser = async (req, res) => {
     
       // Générer le token
       const secret = process.env.JWT_SECRET || 'monsecretdev';
-      const token = jwt.sign({ id: user._id, email: user.email }, secret, { expiresIn: '1h' });
+      const token = jwt.sign({ id: user._id, email: user.email, role: user.role }, secret, { expiresIn: '1h' });
     
       res.json({ token });  
     } catch (err) {
@@ -37,6 +43,9 @@ exports.loginUser = async (req, res) => {
 
 // Récupération de tous les utilisateurs
 exports.getAllUsers = async (req, res) => {
+
+  if (req.user.role !== 'admin') return res.status(403).json({ error: 'Accès refusé' });
+
   try {
     const users = await User.find().lean(); // .lean() => objets JS simples
     res.json(users);
