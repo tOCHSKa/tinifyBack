@@ -15,4 +15,10 @@ router.post('/login', userController.loginUser);
 // Récupération sécurisée de tous les utilisateurs 
 router.get('/', auth, userController.getAllUsers);
 
+// Récupération de l'utilisateur connecté
+router.get('/me', auth, userController.getMe);
+
+// Deconnexion de l'utilisateur
+router.post('/logout', auth, userController.logoutUser);
+
 module.exports = router;

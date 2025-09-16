@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const usersRoutes = require('./routes/users');
 const rateLimit = require('express-rate-limit');
 const createAdminUser = require('./scripts/createAdmin');
+const User = require('./models/User');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,9 +18,10 @@ app.use(express.static('public'));
 const cors = require('cors');
 
 const corsOptions = {
-  origin: ['http://localhost:8080'], // ton front local
+  origin: ['http://localhost:8080'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
@@ -41,6 +43,15 @@ app.use(limiter);
 // Routes
 // ===========================
 app.use('/users', usersRoutes);
+
+// app.get('/users', async (req, res) => {
+//   try {
+//     const users = await User.find().select('-password -__v');
+//     res.json({ users });
+//   } catch (err) {
+//     res.status(500).json({ error: 'Erreur serveur' });
+//   }
+// });
 
 // ===========================
 // Connexion à MongoDB
