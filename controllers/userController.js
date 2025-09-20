@@ -34,11 +34,14 @@ exports.loginUser = async (req, res) => {
     // Génération du token
     const secret = process.env.JWT_SECRET || 'monsecretdev';
     const token = jwt.sign(
-      { id: user._id, email: user.email, role: user.role },
+      { UUID: user.UUID, email: user.email, role: user.role },
       secret,
       { expiresIn: '1h' }
     );
 
+    user.lastLogin = new Date();
+    await user.save();
+    
     // ✅ Envoyer le token dans un cookie
     res.cookie('token', token, {
       httpOnly: true,               // protégé contre l'accès JS
@@ -50,7 +53,7 @@ exports.loginUser = async (req, res) => {
     // Optionnel : renvoyer des infos publiques (jamais le token)
     res.json({
       message: 'Connexion réussie',
-      user: { id: user._id, email: user.email, role: user.role }
+      user: { UUID: user.UUID, email: user.email, role: user.role }
     });
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -73,16 +76,28 @@ exports.getAllUsers = async (req, res) => {
 // Récupération de l'utilisateur connecté
 exports.getMe = async (req, res) => {
   try {
-    if (!req.user) return res.status(401).json({ error: 'Non authentifié' })
+    if (!req.user) {
+      return res.status(401).json({ error: 'Non authentifié' })
+    }
 
-    // renvoie email et rôle
-    const { email, role } = req.user
-    res.json({ email, role })
+    const planValue =
+      req.user.role === 'admin'
+        ? 'Non défini'
+        : req.user.plan || 'free' // fallback pour un user normal
+
+    res.json({
+      email: req.user.email,
+      role: req.user.role,
+      plan: planValue,
+      compressionCount: req.user.compressionCount || 0,
+    })
   } catch (err) {
     res.status(500).json({ error: 'Erreur serveur' })
   }
 }
 
+
+// Déconnexion de l'utilisateur
 exports.logoutUser = (req, res) => {
   try {
     // Supprimer le cookie côté serveur
@@ -97,3 +112,38 @@ exports.logoutUser = (req, res) => {
     return res.status(500).json({ error: 'Erreur lors de la déconnexion' })
   }
 }
+
+// Mise à jour d'un utilisateur
+exports.updateUser = async (req, res) => {
+  // Vérifier que le demandeur est admin
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Accès refusé' });
+  }
+
+  try {
+    const { role } = req.body;
+
+    // Validation du rôle
+    if (!['user', 'admin'].includes(role)) {
+      return res.status(400).json({ error: 'Rôle invalide' });
+    }
+
+    // Mise à jour
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      { role },
+      { new: true } // renvoie l'utilisateur mis à jour
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: 'Utilisateur introuvable' });
+    }
+
+    // Masquer le mot de passe avant réponse
+    user.password = undefined;
+
+    res.json({ message: 'Utilisateur mis à jour', user });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

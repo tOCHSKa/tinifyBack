@@ -6,6 +6,10 @@ const usersRoutes = require('./routes/users');
 const rateLimit = require('express-rate-limit');
 const createAdminUser = require('./scripts/createAdmin');
 const User = require('./models/User');
+const uploadRoutes = require('./routes/upload');
+// const path = require('path');
+// const fs = require('fs-extra');
+// const multer = require('multer');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,7 +17,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware JSON et cookies
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
 const cors = require('cors');
 
@@ -43,6 +47,7 @@ app.use(limiter);
 // Routes
 // ===========================
 app.use('/users', usersRoutes);
+app.use('/uploads', uploadRoutes);
 
 // app.get('/users', async (req, res) => {
 //   try {

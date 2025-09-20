@@ -1,8 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const auth = require('../middlewares/auth');
 const userController = require('../controllers/userController');
 
@@ -20,5 +17,8 @@ router.get('/me', auth, userController.getMe);
 
 // Deconnexion de l'utilisateur
 router.post('/logout', auth, userController.logoutUser);
+
+// Mise à jour d'un utilisateur
+router.put('/:id', auth, userController.updateUser);
 
 module.exports = router;
