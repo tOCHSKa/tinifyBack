@@ -7,8 +7,9 @@ const User = require('../models/User'); // pour récupérer compressionCount dep
  * Fabrique d’upload
  * @param {string} type - "images" ou "videos"
  * @param {boolean} multiple - true pour plusieurs fichiers (array), false pour un seul (single)
+ * @param {number} maxFiles - nombre maximum de fichiers
  */
-function createUploader(type, multiple = false, maxFiles = 20) {
+function createUploader(type, multiple = true, maxFiles = 20) {
   const storage = multer.diskStorage({
     destination: async (req, file, cb) => {
       try {
@@ -19,8 +20,9 @@ function createUploader(type, multiple = false, maxFiles = 20) {
         const user = await User.findOne({ UUID: userUUID });
         if (!user) return cb(new Error('Utilisateur introuvable'));
 
+        const compressionMax = user.role === 'admin' ? Infinity : 20;
         const compressedCount = user.compressionCount || 0;
-        if (compressedCount >= 20) return cb(new Error('Nombre maximum de compressions atteint'));
+        if (compressedCount >= compressionMax && user.role !== 'admin') return cb(new Error('Nombre maximum de compressions atteint'));
 
         // Chemin attendu : app/uploads/<UUID>/<type>/<compressionCount>
         const uploadPath = path.join(__dirname, '..', 'uploads', userUUID, type, String(compressedCount));
@@ -50,6 +52,6 @@ function createUploader(type, multiple = false, maxFiles = 20) {
 
 // Middlewares prêts à l'emploi
 const uploadImages = createUploader('images', true, 20); // max 20 fichiers
-const uploadVideos = createUploader('videos', false);    // un seul fichier
+const uploadVideos = createUploader('videos', false, 1);    // un seul fichier
 
 module.exports = { uploadImages, uploadVideos, createUploader };

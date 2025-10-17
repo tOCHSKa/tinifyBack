@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Profil - TinifyCloud</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .sidebar-item:hover {
+            background-color: #f0f9ff;
+            color: #1e40af;
+        }
+        .sidebar-item.active {
+            background-color: #dbeafe;
+            color: #1e40af;
+            border-left: 4px solid #1e40af;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <i data-feather="cloud" class="text-blue-600 w-8 h-8 mr-2"></i>
+                <span class="text-xl font-bold text-blue-800">TinifyCloud</span>
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="index.html" class="font-medium text-gray-600 hover:text-blue-800">Accueil</a>
+                <div class="relative">
+                    <button class="flex items-center space-x-2 focus:outline-none">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-8 h-8 rounded-full" alt="Profil">
+                        <span class="font-medium">Mon Profil</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-6 py-8 flex flex-col md:flex-row">
+        <!-- Sidebar -->
+        <div class="md:w-1/4 mb-8 md:mb-0 md:pr-8">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex flex-col items-center mb-6">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-20 h-20 rounded-full mb-4" alt="Profil">
+                    <h3 class="text-lg font-bold">Sophie Dupont</h3>
+                    <p class="text-gray-500 text-sm">Membre depuis juin 2022</p>
+                </div>
+                <div class="space-y-2">
+                    <a href="#" class="sidebar-item active flex items-center p-3 rounded-lg">
+                        <i data-feather="user" class="w-5 h-5 mr-3"></i>
+                        <span>Mon profil</span>
+                    </a>
+                    <a href="images.html" class="sidebar-item flex items-center p-3 rounded-lg">
+                        <i data-feather="image" class="w-5 h-5 mr-3"></i>
+                        <span>Compresser images</span>
+                    </a>
+<a href="#" class="sidebar-item flex items-center p-3 rounded-lg">
+                        <i data-feather="settings" class="w-5 h-5 mr-3"></i>
+                        <span>Paramètres</span>
+                    </a>
+                    <a href="#" class="sidebar-item flex items-center p-3 rounded-lg">
+                        <i data-feather="credit-card" class="w-5 h-5 mr-3"></i>
+                        <span>Abonnement</span>
+                    </a>
+                    <a href="#" class="sidebar-item flex items-center p-3 rounded-lg">
+                        <i data-feather="help-circle" class="w-5 h-5 mr-3"></i>
+                        <span>Aide</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="md:w-3/4">
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold">Informations personnelles</h2>
+                    <button class="text-blue-800 hover:text-blue-900 font-medium">Modifier</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="text-gray-500 text-sm">Nom complet</label>
+                        <p class="font-medium">Sophie Dupont</p>
+                    </div>
+                    <div>
+                        <label class="text-gray-500 text-sm">Email</label>
+                        <p class="font-medium">sophie.dupont@example.com</p>
+                    </div>
+                    <div>
+                        <label class="text-gray-500 text-sm">Téléphone</label>
+                        <p class="font-medium">+33 6 12 34 56 78</p>
+                    </div>
+                    <div>
+                        <label class="text-gray-500 text-sm">Entreprise</label>
+                        <p class="font-medium">Dupont Photography</p>
+                    </div>
+                    <div>
+                        <label class="text-gray-500 text-sm">Adresse</label>
+                        <p class="font-medium">15 Rue de la République, 75001 Paris</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h2 class="text-xl font-bold mb-6">Statistiques d'utilisation</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <div class="text-blue-800 font-bold text-2xl mb-2">142</div>
+                        <div class="text-gray-600">Fichiers compressés</div>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <div class="text-blue-800 font-bold text-2xl mb-2">3.2 GB</div>
+                        <div class="text-gray-600">Espace gagné</div>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <div class="text-blue-800 font-bold text-2xl mb-2">Premium</div>
+                        <div class="text-gray-600">Abonnement actuel</div>
+                    </div>
+                </div>
+
+                <h3 class="font-semibold mb-4">Activité récente</h3>
+                <div class="space-y-4">
+                    <div class="flex items-start p-3 border border-gray-100 rounded-lg">
+                        <div class="bg-blue-100 p-2 rounded-lg mr-4">
+                            <i data-feather="image" class="text-blue-800 w-5 h-5"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between">
+                                <span class="font-medium">photo_produit.jpg</span>
+                                <span class="text-sm text-gray-500">Aujourd'hui, 14:32</span>
+                            </div>
+                            <div class="text-sm text-gray-600">Réduction de 4.2 MB à 1.1 MB (74%)</div>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-3 border border-gray-100 rounded-lg">
+                        <div class="bg-blue-100 p-2 rounded-lg mr-4">
+                            <i data-feather="video" class="text-blue-800 w-5 h-5"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between">
+                                <span class="font-medium">presentation.mp4</span>
+                                <span class="text-sm text-gray-500">Hier, 09:15</span>
+                            </div>
+                            <div class="text-sm text-gray-600">Réduction de 82 MB à 45 MB (45%)</div>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-3 border border-gray-100 rounded-lg">
+                        <div class="bg-blue-100 p-2 rounded-lg mr-4">
+                            <i data-feather="image" class="text-blue-800 w-5 h-5"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between">
+                                <span class="font-medium">banner_web.png</span>
+                                <span class="text-sm text-gray-500">20 juin 2023</span>
+                            </div>
+                            <div class="text-sm text-gray-600">Réduction de 1.8 MB à 540 KB (70%)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8">
+                    <a href="index.html" class="bg-blue-800 hover:bg-blue-900 text-white px-6 py-3 rounded-lg font-medium inline-block transition duration-200">Compresser un nouveau fichier</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <i data-feather="cloud" class="text-blue-600 w-6 h-6 mr-2"></i>
+                    <span class="text-lg font-bold">TinifyCloud</span>
+                </div>
+                <div class="text-gray-400 text-sm">
+                    © 2023 TinifyCloud. Tous droits réservés.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

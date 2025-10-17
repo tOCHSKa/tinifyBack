@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compression de vidéos - TinifyCloud</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .sidebar-item:hover {
+            background-color: #f0f9ff;
+            color: #1e40af;
+        }
+        .sidebar-item.active {
+            background-color: #dbeafe;
+            color: #1e40af;
+            border-left: 4px solid #1e40af;
+        }
+        .dropzone {
+            border: 2px dashed #93c5fd;
+            transition: all 0.3s ease;
+        }
+        .dropzone.active {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <i data-feather="cloud" class="text-blue-600 w-8 h-8 mr-2"></i>
+                <span class="text-xl font-bold text-blue-800">TinifyCloud</span>
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="index.html" class="font-medium text-gray-600 hover:text-blue-800">Accueil</a>
+                <div class="relative">
+                    <button class="flex items-center space-x-2 focus:outline-none">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-8 h-8 rounded-full" alt="Profil">
+                        <span class="font-medium">Mon Profil</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-6 py-8 flex flex-col md:flex-row">
+        <!-- Sidebar -->
+        <div class="md:w-1/4 mb-8 md:mb-0 md:pr-8">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex flex-col items-center mb-6">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-20 h-20 rounded-full mb-4" alt="Profil">
+                    <h3 class="text-lg font-bold">Sophie Dupont</h3>
+                    <p class="text-gray-500 text-sm">Membre depuis juin 2022</p>
+                </div>
+                <div class="space-y-2">
+                    <a href="profile.html" class="sidebar-item flex items-center p-3 rounded-lg">
+                        <i data-feather="user" class="w-5 h-5 mr-3"></i>
+                        <span>Mon profil</span>
+                    </a>
+                    <a href="images.html" class="sidebar-item flex items-center p-3 rounded-lg">
+                        <i data-feather="image" class="w-5 h-5 mr-3"></i>
+                        <span>Compresser images</span>
+                    </a>
+                    <a href="videos.html" class="sidebar-item active flex items-center p-3 rounded-lg">
+                        <i data-feather="video" class="w-5 h-5 mr-3"></i>
+                        <span>Compresser vidéos</span>
+                    </a>
+                    <a href="#" class="sidebar-item flex items-center p-3 rounded-lg">
+                        <i data-feather="settings" class="w-5 h-5 mr-3"></i>
+                        <span>Paramètres</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="md:w-3/4">
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <h1 class="text-2xl font-bold mb-6">Compresser vos vidéos</h1>
+                
+                <div id="dropzone" class="dropzone rounded-lg p-12 text-center mb-6">
+                    <div class="max-w-md mx-auto">
+                        <i data-feather="upload-cloud" class="w-12 h-12 text-blue-500 mx-auto mb-4"></i>
+                        <h3 class="text-lg font-medium mb-2">Glissez-déposez vos vidéos ici</h3>
+                        <p class="text-gray-500 mb-4">Formats supportés : MP4, MOV, AVI, MKV</p>
+                        <label for="file-upload" class="cursor-pointer bg-blue-800 hover:bg-blue-900 text-white px-6 py-2 rounded-lg font-medium inline-block transition duration-200">
+                            Ou sélectionnez des fichiers
+                            <input id="file-upload" type="file" class="hidden" multiple accept="video/*">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-4" id="preview-container">
+                    <!-- Les vidéos uploadées apparaîtront ici -->
+                </div>
+
+                <div class="mt-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm font-medium">Qualité de compression</span>
+                        <span id="quality-value" class="text-sm font-medium text-blue-600">Moyenne</span>
+                    </div>
+                    <input type="range" id="quality-slider" min="1" max="3" value="2" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                    <div class="flex justify-between text-xs text-gray-500 mt-1">
+                        <span>Haute qualité</span>
+                        <span>Moyenne</span>
+                        <span>Taille minimale</span>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex justify-between items-center">
+                    <div class="text-gray-600">
+                        <span id="file-count">0</span> fichier(s) sélectionné(s)
+                    </div>
+                    <button id="compress-btn" class="bg-blue-800 hover:bg-blue-900 text-white px-6 py-3 rounded-lg font-medium transition duration-200 opacity-50 cursor-not-allowed" disabled>
+                        Compresser maintenant
+                    </button>
+                </div>
+
+                <div id="progress-container" class="hidden mt-6">
+                    <div class="flex justify-between mb-1">
+                        <span class="text-sm font-medium">Progression</span>
+                        <span id="progress-percent" class="text-sm font-medium text-blue-600">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div id="progress-bar" class="progress-bar bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <i data-feather="cloud" class="text-blue-600 w-6 h-6 mr-2"></i>
+                    <span class="text-lg font-bold">TinifyCloud</span>
+                </div>
+                <div class="text-gray-400 text-sm">
+                    © 2023 TinifyCloud. Tous droits réservés.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('file-upload');
+        const previewContainer = document.getElementById('preview-container');
+        const fileCount = document.getElementById('file-count');
+        const compressBtn = document.getElementById('compress-btn');
+        const qualitySlider = document.getElementById('quality-slider');
+        const qualityValue = document.getElementById('quality-value');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercent = document.getElementById('progress-percent');
+        let files = [];
+
+        // Mise à jour de l'affichage de la qualité
+        qualitySlider.addEventListener('input', function() {
+            const quality = parseInt(this.value);
+            const qualityText = ['Haute qualité', 'Moyenne', 'Taille minimale'][quality - 1];
+            qualityValue.textContent = qualityText;
+        });
+
+        // Gestion du drag and drop
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropzone.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight() {
+            dropzone.classList.add('active');
+        }
+
+        function unhighlight() {
+            dropzone.classList.remove('active');
+        }
+
+        // Gestion du drop
+        dropzone.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            files = [...dt.files];
+            handleFiles(files);
+        }
+
+        // Gestion de la sélection de fichiers
+        fileInput.addEventListener('change', function() {
+            files = [...this.files];
+            handleFiles(files);
+        });
+
+        function handleFiles(newFiles) {
+            files = newFiles;
+            updateFileCount();
+            previewFiles();
+            updateCompressButton();
+        }
+
+        function updateFileCount() {
+            fileCount.textContent = files.length;
+        }
+
+        function updateCompressButton() {
+            if (files.length > 0) {
+                compressBtn.disabled = false;
+                compressBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            } else {
+                compressBtn.disabled = true;
+                compressBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        function previewFiles() {
+            previewContainer.innerHTML = '';
+            
+            if (files.length > 0) {
+                files.forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const previewItem = document.createElement('div');
+                        previewItem.className = 'flex items-center p-3 border border-gray-200 rounded-lg';
+                        previewItem.innerHTML = `
+                            <div class="flex-shrink-0 mr-4 relative">
+                                <video class="w-16 h-16 object-cover rounded" src="${e.target.result}" preload="metadata"></video>
+                                <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs text-center py-1">
+                                    ${formatDuration(10)}
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-medium truncate">${file.name}</div>
+                                <div class="text-sm text-gray-500">${formatFileSize(file.size)}</div>
+                            </div>
+                            <button class="text-red-500 hover:text-red-700" data-index="${index}">
+                                <i data-feather="trash-2" class="w-5 h-5"></i>
+                            </button>
+                        `;
+                        previewContainer.appendChild(previewItem);
+                        
+                        // Récupération de la durée réelle
+                        const video = previewItem.querySelector('video');
+                        video.onloadedmetadata = function() {
+                            const duration = video.duration;
+                            previewItem.querySelector('div.absolute').textContent = formatDuration(duration);
+                        };
+
+                        feather.replace();
+
+                        // Ajout de l'événement pour supprimer le fichier
+                        previewItem.querySelector('button').addEventListener('click', function() {
+                            const indexToRemove = parseInt(this.getAttribute('data-index'));
+                            files.splice(indexToRemove, 1);
+                            handleFiles([...files]);
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+
+        function formatDuration(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+            return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Gestion de la compression
+        compressBtn.addEventListener('click', function() {
+            if (files.length > 0) {
+                progressContainer.classList.remove('hidden');
+                compressBtn.disabled = true;
+                compressBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += Math.random() * 10;
+                    if (progress >= 100) {
+                        progress = 100;
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            alert('Vos vidéos ont été compressées avec succès !');
+                            progressContainer.classList.add('hidden');
+                            compressBtn.disabled = false;
+                            compressBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                        }, 500);
+                    }
+                    progressBar.style.width = `${progress}%`;
+                    progressPercent.textContent = `${Math.round(progress)}%`;
+                }, 300);
+            }
+        });
+    </script>
+</body>
+</html>

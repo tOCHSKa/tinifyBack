@@ -10,6 +10,7 @@ const uploadRoutes = require('./routes/upload');
 // const path = require('path');
 // const fs = require('fs-extra');
 // const multer = require('multer');
+const startCleanupJob = require('./jobs/cleanupUploads');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -49,6 +50,9 @@ app.use(limiter);
 app.use('/users', usersRoutes);
 app.use('/uploads', uploadRoutes);
 
+// Lancer le job de nettoyage
+startCleanupJob();
+
 // app.get('/users', async (req, res) => {
 //   try {
 //     const users = await User.find().select('-password -__v');
@@ -70,3 +74,4 @@ mongoose.connect(process.env.MONGO_URI, {
   app.listen(PORT, () => console.log(`Serveur lancé sur le port ${PORT}`));
 })
 .catch(err => console.error('Erreur MongoDB :', err));
+

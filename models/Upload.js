@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const uploadSchema = new mongoose.Schema({
   userUUID: { type: String, required: true },
   type: { type: String, required: true }, // "image" ou "video"
-  filenames: { type: [String], required: true }, // tableau de noms
-  sizes: { type: [Number], required: true },     // tableau de tailles
-  paths: { type: [String], required: true },     // tableau de chemins
+  filenames: { type: [String], required: true }, // fichiers compressés
+  sizes: { type: [Number], required: true },     // tailles après compression
+  originalSizes: { type: [Number], required: true }, // ✅ tailles avant compression
+  paths: { type: [String], required: true },     // chemins des fichiers compressés
   createdAt: { type: Date, default: Date.now }
 });
 

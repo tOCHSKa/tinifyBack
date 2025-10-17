@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compression d'images - TinifyCloud</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .dropzone {
+            border: 2px dashed #93c5fd;
+            transition: all 0.3s ease;
+        }
+        .dropzone.active {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <i data-feather="cloud" class="text-blue-600 w-8 h-8 mr-2"></i>
+                <span class="text-xl font-bold text-blue-800">TinifyCloud</span>
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="index.html" class="font-medium text-gray-600 hover:text-blue-800">Accueil</a>
+                <a href="#" class="font-medium text-gray-600 hover:text-blue-800">Connexion</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-12">
+        <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-sm p-8">
+            <h1 class="text-3xl font-bold mb-6">Compresser vos images</h1>
+            <p class="text-lg text-gray-600 mb-8">Réduisez la taille de vos images sans perte de qualité visible. Formats supportés : JPG, PNG, GIF, WEBP</p>
+            
+            <div id="dropzone" class="dropzone rounded-lg p-12 text-center mb-8">
+                <div class="max-w-md mx-auto">
+                    <i data-feather="upload-cloud" class="w-12 h-12 text-blue-500 mx-auto mb-4"></i>
+                    <h3 class="text-lg font-medium mb-2">Glissez-déposez vos images ici</h3>
+                    <p class="text-gray-500 mb-4">Taille maximale par fichier : 10MB</p>
+                    <label for="file-upload" class="cursor-pointer bg-blue-800 hover:bg-blue-900 text-white px-6 py-2 rounded-lg font-medium inline-block transition duration-200">
+                        Ou sélectionnez des fichiers
+                        <input id="file-upload" type="file" class="hidden" multiple accept="image/*">
+                    </label>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 mb-8" id="preview-container">
+                <!-- Les images uploadées apparaîtront ici -->
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div class="text-gray-600">
+                    <span id="file-count">0</span> fichier(s) sélectionné(s)
+                </div>
+                <div class="flex space-x-4">
+                    <button id="reset-btn" class="border border-gray-300 hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-lg font-medium transition duration-200">
+                        Tout effacer
+                    </button>
+                    <button id="compress-btn" class="bg-blue-800 hover:bg-blue-900 text-white px-6 py-3 rounded-lg font-medium transition duration-200 opacity-50 cursor-not-allowed" disabled>
+                        Compresser maintenant
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <div class="container mx-auto px-6 py-12">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold mb-8 text-center">Pourquoi choisir TinifyCloud ?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                    <div class="bg-blue-50 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i data-feather="zap" class="text-blue-800 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Rapide</h3>
+                    <p class="text-gray-600">Compression en quelques secondes grâce à nos algorithmes optimisés</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                    <div class="bg-blue-50 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i data-feather="shield" class="text-blue-800 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Sécurisé</h3>
+                    <p class="text-gray-600">Vos fichiers sont supprimés automatiquement après 24 heures</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                    <div class="bg-blue-50 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i data-feather="dollar-sign" class="text-blue-800 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Gratuit</h3>
+                    <p class="text-gray-600">Jusqu'à 20 compressions par mois sans frais</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <i data-feather="cloud" class="text-blue-600 w-6 h-6 mr-2"></i>
+                    <span class="text-lg font-bold">TinifyCloud</span>
+                </div>
+                <div class="text-gray-400 text-sm">
+                    © 2023 TinifyCloud. Tous droits réservés.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('file-upload');
+        const previewContainer = document.getElementById('preview-container');
+        const fileCount = document.getElementById('file-count');
+        const compressBtn = document.getElementById('compress-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        let files = [];
+
+        // Gestion du drag and drop
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropzone.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight() {
+            dropzone.classList.add('active');
+        }
+
+        function unhighlight() {
+            dropzone.classList.remove('active');
+        }
+
+        // Gestion du drop
+        dropzone.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            files = [...dt.files];
+            handleFiles(files);
+        }
+
+        // Gestion de la sélection de fichiers
+        fileInput.addEventListener('change', function() {
+            files = [...this.files];
+            handleFiles(files);
+        });
+
+        // Réinitialisation
+        resetBtn.addEventListener('click', function() {
+            files = [];
+            handleFiles(files);
+            fileInput.value = '';
+        });
+
+        function handleFiles(newFiles) {
+            files = newFiles;
+            updateFileCount();
+            previewFiles();
+            updateCompressButton();
+        }
+
+        function updateFileCount() {
+            fileCount.textContent = files.length;
+        }
+
+        function updateCompressButton() {
+            if (files.length > 0) {
+                compressBtn.disabled = false;
+                compressBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            } else {
+                compressBtn.disabled = true;
+                compressBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        function previewFiles() {
+            previewContainer.innerHTML = '';
+            
+            if (files.length > 0) {
+                files.forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const previewItem = document.createElement('div');
+                        previewItem.className = 'flex items-center p-3 border border-gray-200 rounded-lg';
+                        previewItem.innerHTML = `
+                            <div class="flex-shrink-0 mr-4">
+                                <img src="${e.target.result}" class="w-16 h-16 object-cover rounded" alt="Preview">
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-medium truncate">${file.name}</div>
+                                <div class="text-sm text-gray-500">${formatFileSize(file.size)}</div>
+                            </div>
+                            <button class="text-red-500 hover:text-red-700" data-index="${index}">
+                                <i data-feather="trash-2" class="w-5 h-5"></i>
+                            </button>
+                        `;
+                        previewContainer.appendChild(previewItem);
+                        feather.replace();
+
+                        // Ajout de l'événement pour supprimer le fichier
+                        previewItem.querySelector('button').addEventListener('click', function() {
+                            const indexToRemove = parseInt(this.getAttribute('data-index'));
+                            files.splice(indexToRemove, 1);
+                            handleFiles([...files]);
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Gestion de la compression
+        compressBtn.addEventListener('click', function() {
+            if (files.length > 0) {
+                alert('Compression en cours... Cette fonctionnalité sera implémentée prochainement !');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/auth');
-const { uploadImages, uploadVideos } = require('../middlewares/upload'); // ton Multer
+const { uploadImages, uploadVideos } = require('../middlewares/upload');
 const uploadController = require('../controllers/uploadController');
 
 // Upload une image

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinifyCloud - Compression d'images et vidéos en ligne</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+    <!-- Navigation -->
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <i data-feather="cloud" class="text-blue-800 w-8 h-8 mr-2"></i>
+            <span class="text-xl font-bold text-blue-900">TinifyCloud</span>
+        </div>
+        <div class="hidden md:flex space-x-8">
+            <a href="#" class="font-medium hover:text-blue-800">Accueil</a>
+            <a href="#" class="font-medium hover:text-blue-800">Fonctionnalités</a>
+            <a href="#" class="font-medium hover:text-blue-800">Tarifs</a>
+            <a href="#" class="font-medium hover:text-blue-800">FAQ</a>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="#" class="font-medium hover:text-blue-800 hidden md:block">Connexion</a>
+            <a href="#" class="bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 rounded-lg font-medium transition duration-200">Commencer</a>
+        </div>
+        <button class="md:hidden">
+            <i data-feather="menu" class="w-6 h-6"></i>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient py-20 md:py-32">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-12 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">Compressez vos fichiers en quelques secondes</h1>
+                <p class="text-xl text-gray-900 mb-8">Réduisez la taille de vos images et vidéos sans perdre en qualité. Gagnez de l'espace et accélérez vos sites web.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#" class="bg-blue-800 hover:bg-blue-900 text-white px-6 py-3 rounded-lg font-medium text-center transition duration-200">Commencer maintenant</a>
+                    <a href="#" class="border border-blue-800 text-blue-800 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium text-center transition duration-200">Voir comment ça marche</a>
+                </div>
+                <div class="mt-8 flex items-center space-x-4">
+                    <div class="flex -space-x-2">
+                        <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-10 h-10 rounded-full border-2 border-white" alt="User">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-10 h-10 rounded-full border-2 border-white" alt="User">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-10 h-10 rounded-full border-2 border-white" alt="User">
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-900">Rejoint par <span class="font-medium">5000+</span> utilisateurs</p>
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2">
+                <div class="bg-white p-4 rounded-xl shadow-lg">
+                    <div class="bg-gray-100 rounded-lg overflow-hidden">
+                        <img src="http://static.photos/technology/1024x576/42" alt="Interface TinifyCloud" class="w-full h-auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Optimisez vos médias simplement</h2>
+                <p class="text-xl text-gray-900 max-w-2xl mx-auto">TinifyCloud utilise des algorithmes avancés pour réduire la taille de vos fichiers tout en préservant leur qualité.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="feature-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition duration-200">
+                    <div class="bg-blue-50 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                        <i data-feather="save" class="text-blue-800 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Gain de place</h3>
+                    <p class="text-gray-900">Jusqu'à 90% de réduction de taille sans perte de qualité visible.</p>
+                </div>
+                <div class="feature-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition duration-200">
+                    <div class="bg-blue-50 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                        <i data-feather="zap" class="text-blue-800 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Rapidité</h3>
+                    <p class="text-gray-900">Compression ultra-rapide, vos fichiers sont prêts en quelques secondes.</p>
+                </div>
+                <div class="feature-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition duration-200">
+                    <div class="bg-blue-50 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                        <i data-feather="lock" class="text-blue-800 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Confidentialité</h3>
+                    <p class="text-gray-900">Vos fichiers sont supprimés automatiquement après 24 heures.</p>
+                </div>
+                <div class="feature-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition duration-200">
+                    <div class="bg-blue-50 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                        <i data-feather="dollar-sign" class="text-blue-800 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Gratuit</h3>
+                    <p class="text-gray-900">Jusqu'à 20 compressions par mois gratuitement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Ils nous font confiance</h2>
+                <p class="text-xl text-gray-900 max-w-2xl mx-auto">Des milliers de professionnels utilisent TinifyCloud quotidiennement.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" class="w-12 h-12 rounded-full mr-4" alt="Client">
+                        <div>
+                            <h4 class="font-semibold">Sophie Martin</h4>
+                            <p class="text-gray-800 text-sm">Photographe</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-900">"Je compressais mes photos manuellement avant de découvrir TinifyCloud. Maintenant, je gagne des heures chaque semaine !"</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/54.jpg" class="w-12 h-12 rounded-full mr-4" alt="Client">
+                        <div>
+                            <h4 class="font-semibold">Thomas Leroy</h4>
+                            <p class="text-gray-800 text-sm">Développeur web</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-900">"Mes sites web chargent 40% plus vite depuis que j'utilise TinifyCloud pour optimiser toutes les images. Un must-have !"</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/67.jpg" class="w-12 h-12 rounded-full mr-4" alt="Client">
+                        <div>
+                            <h4 class="font-semibold">Élodie Bernard</h4>
+                            <p class="text-gray-800 text-sm">Community Manager</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-900">"Je partage des dizaines de visuels chaque jour sur les réseaux sociaux. TinifyCloud m'aide à garder une excellente qualité tout en réduisant la taille."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Comment ça marche ?</h2>
+                <p class="text-xl text-gray-900 max-w-2xl mx-auto">Trois étapes simples pour des fichiers optimisés.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="bg-blue-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-blue-800 text-2xl font-bold">1</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Uploader</h3>
+                    <p class="text-gray-900">Glissez-déposez vos fichiers ou sélectionnez-les depuis votre appareil.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-blue-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-blue-800 text-2xl font-bold">2</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Compression</h3>
+                    <p class="text-gray-900">Nos algorithmes optimisent vos fichiers en quelques secondes.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-blue-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-blue-800 text-2xl font-bold">3</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Téléchargement</h3>
+                    <p class="text-gray-900">Récupérez vos fichiers optimisés immédiatement.</p>
+                </div>
+            </div>
+            <div class="mt-16 text-center">
+                <a href="#" class="bg-blue-800 hover:bg-blue-900 text-white px-8 py-3 rounded-lg font-medium inline-block transition duration-200">Essayer gratuitement</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Questions fréquentes</h2>
+                <p class="text-xl text-gray-900">Trouvez rapidement les réponses à vos questions.</p>
+            </div>
+            <div class="space-y-4">
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <button class="flex justify-between items-center w-full text-left">
+                        <h3 class="font-semibold text-lg">Est-ce que la compression affecte la qualité de mes fichiers ?</h3>
+                        <i data-feather="chevron-down" class="w-5 h-5 text-gray-800"></i>
+                    </button>
+                    <div class="mt-4 text-gray-900 hidden">
+                        <p>Nos algorithmes de compression sont conçus pour réduire la taille des fichiers tout en préservant une qualité visuelle optimale. Dans la plupart des cas, la différence est imperceptible à l'œil nu.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <button class="flex justify-between items-center w-full text-left">
+                        <h3 class="font-semibold text-lg">Quels formats de fichiers sont supportés ?</h3>
+                        <i data-feather="chevron-down" class="w-5 h-5 text-gray-800"></i>
+                    </button>
+                    <div class="mt-4 text-gray-900 hidden">
+                        <p>Nous supportons tous les formats d'image courants (JPEG, PNG, GIF, WEBP) ainsi que les vidéos (MP4, MOV, AVI). La liste complète est disponible sur notre page de documentation.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <button class="flex justify-between items-center w-full text-left">
+                        <h3 class="font-semibold text-lg">Combien de temps mes fichiers restent-ils sur vos serveurs ?</h3>
+                        <i data-feather="chevron-down" class="w-5 h-5 text-gray-800"></i>
+                    </button>
+                    <div class="mt-4 text-gray-900 hidden">
+                        <p>Pour garantir votre confidentialité, tous les fichiers sont automatiquement supprimés de nos serveurs 24 heures après leur compression. Vous pouvez également les supprimer manuellement immédiatement après le téléchargement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 bg-blue-800 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-6">Prêt à optimiser vos fichiers ?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Rejoignez des milliers d'utilisateurs satisfaits et accélérez vos sites web dès aujourd'hui.</p>
+            <a href="#" class="bg-white text-blue-800 hover:bg-gray-100 px-8 py-3 rounded-lg font-medium inline-block transition duration-200">Commencer maintenant</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i data-feather="cloud" class="text-blue-400 w-8 h-8 mr-2"></i>
+                        <span class="text-xl font-bold">TinifyCloud</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">La solution ultime pour compresser vos images et vidéos en ligne.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i data-feather="twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i data-feather="facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i data-feather="instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i data-feather="linkedin"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Produit</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Fonctionnalités</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Tarifs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">API</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Documentation</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Entreprise</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">À propos</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Carrières</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Légal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Confidentialité</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">CGU</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Mentions légales</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>© 2023 TinifyCloud. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+        
+        // Simple FAQ toggle functionality
+        document.querySelectorAll('section#faq button').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                
+                if (answer.classList.contains('hidden')) {
+                    answer.classList.remove('hidden');
+                    icon.setAttribute('data-feather', 'chevron-up');
+                } else {
+                    answer.classList.add('hidden');
+                    icon.setAttribute('data-feather', 'chevron-down');
+                }
+                feather.replace();
+            });
+        });
+    </script>
+</body>
+</html>
