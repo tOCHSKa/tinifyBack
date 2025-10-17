@@ -31,32 +31,29 @@ exports.loginUser = async (req, res) => {
       return res.status(400).json({ error: 'Email ou mot de passe incorrect' });
     }
 
-    // Génération du token
-    const secret = process.env.JWT_SECRET || 'monsecretdev';
     const token = jwt.sign(
       { UUID: user.UUID, email: user.email, role: user.role },
-      secret,
+      process.env.JWT_SECRET || 'monsecretdev',
       { expiresIn: '1h' }
     );
 
     user.lastLogin = new Date();
     await user.save();
-    
-    // ✅ Envoyer le token dans un cookie
+
     res.cookie('token', token, {
-      httpOnly: true,               // protégé contre l'accès JS
-      secure: process.env.NODE_ENV === 'production', // true si HTTPS
-      sameSite: 'lax',              // 'none' + secure:true si front/back domaines différents
-      maxAge: 60 * 60 * 1000        // 1h
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // Render = HTTPS
+      sameSite: 'none',                               // cross-site avec Netlify
+      maxAge: 60 * 60 * 1000
     });
 
-    // Optionnel : renvoyer des infos publiques (jamais le token)
     res.json({
       message: 'Connexion réussie',
       user: { UUID: user.UUID, email: user.email, role: user.role }
     });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    console.error('Erreur loginUser:', err);
+    res.status(500).json({ error: 'Erreur serveur' });
   }
 };
 
