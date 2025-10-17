@@ -40,10 +40,12 @@ exports.loginUser = async (req, res) => {
     user.lastLogin = new Date();
     await user.save();
 
+    const isProd = process.env.NODE_ENV === 'production';
+
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Render = HTTPS
-      sameSite: 'none',                               // cross-site avec Netlify
+      secure: isProd,
+      sameSite: isProd ? 'none' : 'lax',
       maxAge: 60 * 60 * 1000
     });
 
@@ -56,6 +58,7 @@ exports.loginUser = async (req, res) => {
     res.status(500).json({ error: 'Erreur serveur' });
   }
 };
+
 
 // Récupération de tous les utilisateurs
 exports.getAllUsers = async (req, res) => {
