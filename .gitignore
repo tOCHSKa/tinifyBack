@@ -30,3 +30,6 @@ build/
 # Autres fichiers temporaires
 *.tmp
 *.swp
+
+# Uploads
+uploads/
