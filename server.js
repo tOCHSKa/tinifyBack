@@ -23,7 +23,7 @@ app.use(cookieParser());
 const cors = require('cors');
 
 const corsOptions = {
-  origin: ['http://localhost:8080'],
+  origin: ['http://localhost:8080', 'https://tinifycloud.netlify.app',],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -61,6 +61,10 @@ startCleanupJob();
 //     res.status(500).json({ error: 'Erreur serveur' });
 //   }
 // });
+// Test endpoint
+app.get('/hello', (req, res) => {
+  res.json({ message: 'Hello World' });
+});
 
 // ===========================
 // Connexion à MongoDB
