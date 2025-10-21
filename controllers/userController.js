@@ -121,12 +121,14 @@ exports.getMe = async (req, res) => {
 // Déconnexion de l'utilisateur
 exports.logoutUser = (req, res) => {
   try {
+
+    const isProd = process.env.NODE_ENV === 'production';
     // Supprimer le cookie côté serveur
-    res.clearCookie('token', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // seulement en prod
-      sameSite: 'strict'
-    })
+      res.clearCookie('token', {
+        httpOnly: true,
+        secure: isProd,
+        sameSite: isProd ? 'none' : 'lax'
+      })
 
     return res.json({ message: 'Déconnecté avec succès' })
   } catch (err) {
