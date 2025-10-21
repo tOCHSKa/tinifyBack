@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
+
     password: { type: String, required: true },
 
     UUID: { type: String, unique: true, default: uuidv4 },
@@ -21,33 +22,42 @@ const UserSchema = new mongoose.Schema(
       default: 'user',
     },
 
-    /**
-     * Abonnement / plan
-     * - free : gratuit
-     * - premium : abonnement payant
-     */
     plan: {
       type: String,
       enum: ['free', 'premium'],
       default: 'free',
     },
 
-    /**
-     * Suivi des compressions
-     * Pour limiter ou facturer les utilisations, on peut stocker :
-     * - nombre d'images ou vidéos compressées
-     */
     compressionCount: {
       type: Number,
       default: 0,
     },
 
-    /**
-     * Dernière connexion
-     * Permet de savoir quand l’utilisateur s’est connecté pour la dernière fois
-     */
     lastLogin: {
-      type: Date
+      type: Date,
+    },
+
+    // ✅ Champs optionnels (non obligatoires RGPD)
+    firstName: {
+      type: String,
+      trim: true,
+      default: null,
+    },
+    lastName: {
+      type: String,
+      trim: true,
+      default: null,
+    },
+    phoneNumber: {
+      type: String,
+      trim: true,
+      match: [/^\+?[0-9]{7,15}$/, 'Numéro de téléphone invalide'],
+      default: null,
+    },
+    address: {
+      type: String,
+      trim: true,
+      default: null,
     },
   },
   { timestamps: true }

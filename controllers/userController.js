@@ -5,22 +5,38 @@ const jwt = require('jsonwebtoken');
 // Création d'un utilisateur
 exports.createUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, firstName, lastName, phoneNumber, address } = req.body;
 
-    // ✅ Ajout explicite du rôle
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email et mot de passe sont requis.' });
+    }
+
+    // Vérifie si un utilisateur existe déjà avec cet email
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(409).json({ error: 'Un utilisateur avec cet email existe déjà.' });
+    }
+
+    // Création du nouvel utilisateur
     const user = new User({
       email,
       password,
       role: 'user',
+      firstName: firstName || null,
+      lastName: lastName || null,
+      phoneNumber: phoneNumber || null,
+      address: address || null,
     });
 
     await user.save();
 
-    res.status(201).json({ message: 'Utilisateur créé !' });
+    // ✅ Réponse minimaliste et sécurisée
+    res.status(201).json({ success: true });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
+
 
 exports.loginUser = async (req, res) => {
   try {
@@ -69,7 +85,7 @@ exports.getAllUsers = async (req, res) => {
   if (req.user.role !== 'admin') return res.status(403).json({ error: 'Accès refusé' });
 
   try {
-    const users = await User.find().lean(); // .lean() => objets JS simples
+    const users = await User.find({}, '-password').lean();
     res.json(users);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -88,12 +104,14 @@ exports.getMe = async (req, res) => {
         ? 'Non défini'
         : req.user.plan || 'free' // fallback pour un user normal
 
-    res.json({
-      email: req.user.email,
-      role: req.user.role,
-      plan: planValue,
-      compressionCount: req.user.compressionCount || 0,
-    })
+      res.json({
+        UUID: req.user.UUID,
+        email: req.user.email,
+        role: req.user.role,
+        plan: planValue,
+        compressionCount: req.user.compressionCount || 0,
+      });
+
   } catch (err) {
     res.status(500).json({ error: 'Erreur serveur' })
   }
@@ -123,6 +141,10 @@ exports.updateUser = async (req, res) => {
     return res.status(403).json({ error: 'Accès refusé' });
   }
 
+  if (req.user.id === req.params.id && req.user.role !== 'admin') {
+    return res.status(400).json({ error: 'Impossible de retirer vos propres droits admin.' });
+  }
+  
   try {
     const { role } = req.body;
 
