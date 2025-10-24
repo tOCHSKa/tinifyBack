@@ -59,6 +59,19 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       default: null,
     },
+    failedAttempts: {
+      type: Number,
+      default: 0,
+    },
+    lockUntil: {
+      type: Date,
+      default: null,
+    },
+    entreprise: {
+      type: String,
+      trim: true,
+      default: null,
+    },
   },
   { timestamps: true }
 );

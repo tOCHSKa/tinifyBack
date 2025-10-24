@@ -1,19 +1,13 @@
-// middleware/auth.js
-const jwt = require('jsonwebtoken')
+// 📦 middleware/auth.js
+const { verifyToken } = require('../utils/jwt');
 
-const auth = (req, res, next) => {
-  const token = req.cookies.token || req.header('Authorization')?.replace('Bearer ', '')
-  if (!token) return res.status(401).json({ error: 'Token manquant' })
+module.exports = (req, res, next) => {
+  const token = req.cookies.token || req.header('Authorization')?.replace('Bearer ', '');
+  if (!token) return res.status(401).json({ error: 'Token manquant' });
 
-  try {
-    const secret = process.env.JWT_SECRET || 'monsecretdev'
-    const verified = jwt.verify(token, secret)
-    req.user = verified
-    next()
-  } catch (err) {
-    res.status(401).json({ error: 'Token invalide' })
-  }
-}
+  const decoded = verifyToken(token);
+  if (!decoded) return res.status(401).json({ error: 'Token invalide' });
 
-module.exports = auth
-
+  req.user = decoded;
+  next();
+};

@@ -21,4 +21,7 @@ router.post('/logout', auth, userController.logoutUser);
 // Mise à jour d'un utilisateur
 router.put('/:id', auth, userController.updateUser);
 
+// Suppression d'un utilisateur
+router.delete('/:id', auth, userController.deleteUser);
+
 module.exports = router;
